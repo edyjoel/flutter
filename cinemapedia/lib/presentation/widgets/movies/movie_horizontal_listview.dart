@@ -123,9 +123,11 @@ class _Slide extends StatelessWidget {
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) {
-                    return const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator());
+                    return SizedBox(
+                      width: 150,
+                      height: 220,
+                      child: const Center(child: CircularProgressIndicator()),
+                    );
                   }
                   return FadeIn(child: child);
                 },
@@ -145,15 +147,10 @@ class _Slide extends StatelessWidget {
           Row(
             children: [
               Icon(Icons.star_half, color: Colors.yellow.shade800),
-              const SizedBox(width: 3),
               Text('${movie.voteAverage}',
                   style: textStyles.bodyMedium?.copyWith(
                     color: Colors.yellow.shade800,
                   )),
-              const Spacer(),
-              Text(HumanFormats.number(movie.popularity),
-                  style: textStyles.bodySmall),
-              // Text('${movie.popularity}', style: textStyles.bodySmall),
             ],
           )
         ],
