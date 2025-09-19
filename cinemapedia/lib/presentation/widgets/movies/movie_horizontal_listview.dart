@@ -137,7 +137,7 @@ class _Slide extends StatelessWidget {
             width: 150,
             child: Text(
               movie.title,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: textStyles.titleSmall,
             ),
@@ -145,9 +145,12 @@ class _Slide extends StatelessWidget {
           Row(
             children: [
               Icon(Icons.star_half, color: Colors.yellow.shade800),
-              const SizedBox(width: 5),
-              Text('${movie.voteAverage}', style: textStyles.bodySmall),
-              const SizedBox(width: 5),
+              const SizedBox(width: 3),
+              Text('${movie.voteAverage}',
+                  style: textStyles.bodyMedium?.copyWith(
+                    color: Colors.yellow.shade800,
+                  )),
+              const Spacer(),
               Text(HumanFormats.number(movie.popularity),
                   style: textStyles.bodySmall),
               // Text('${movie.popularity}', style: textStyles.bodySmall),
