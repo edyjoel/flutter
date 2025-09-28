@@ -18,7 +18,7 @@ class MovieMapper {
         posterPath: (moviedb.posterPath.isNotEmpty)
             ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
             // default image
-            : 'no-poster',
+            : 'https://comodosslstore.com/resources/wp-content/uploads/2025/05/website-page-found-error-robot-character-broken-chatbot-mascot-disabled-site-technical-work_502272-1888.jpg',
         releaseDate: moviedb.releaseDate,
         title: moviedb.title,
         video: moviedb.video,
@@ -41,7 +41,7 @@ class MovieMapper {
         posterPath: (moviedb.posterPath.isNotEmpty)
             ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
             // default image
-            : 'no-poster',
+            : 'https://comodosslstore.com/resources/wp-content/uploads/2025/05/website-page-found-error-robot-character-broken-chatbot-mascot-disabled-site-technical-work_502272-1888.jpg',
         releaseDate: moviedb.releaseDate,
         title: moviedb.title,
         video: moviedb.video,
