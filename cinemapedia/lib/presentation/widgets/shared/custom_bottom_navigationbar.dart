@@ -2,33 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key});
+  final int currentIndex;
 
-  int getCurrentIndex(BuildContext context) {
-    final String location = GoRouterState.of(context).uri.toString();
+  const CustomBottomNavigationBar({super.key, required this.currentIndex});
 
-    switch (location) {
-      case '/':
-        return 0; // Home
-      case '/categories':
-        return 1; // Categories
-      case '/favorites':
-        return 2; // Favorites
-      default:
-        return 0; // Default to Home if no match
-    }
-  }
+  // int getCurrentIndex(BuildContext context) {
+  //   final String location = GoRouterState.of(context).uri.toString();
+
+  //   switch (location) {
+  //     case '/':
+  //       return 0; // Home
+  //     case '/categories':
+  //       return 1; // Categories
+  //     case '/favorites':
+  //       return 2; // Favorites
+  //     default:
+  //       return 0; // Default to Home if no match
+  //   }
+  // }
 
   void onItemTapped(BuildContext context, int index) {
     switch (index) {
       case 0:
-        context.go('/');
+        context.go('/home/0');
         break;
       case 1:
-        context.go('/');
+        context.go('/home/1');
         break;
       case 2:
-        context.go('/favorites');
+        context.go('/home/2');
         break;
     }
   }
@@ -37,7 +39,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
         elevation: 0,
-        currentIndex: getCurrentIndex(context),
+        currentIndex: currentIndex,
         onTap: (index) => onItemTapped(context, index),
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Inicio'),
