@@ -1,6 +1,5 @@
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/delegates/search_movie_delegate.dart';
-import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:cinemapedia/presentation/providers/search/search_movies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,7 +41,7 @@ class CustomAppbar extends ConsumerWidget {
                                     .searchMoviesByQuery))
                         .then((movie) {
                       if (movie == null) return;
-                      context.push('/movie/${movie.id}');
+                      context.push('/home/0/movie/${movie.id}');
                     });
                   },
                   icon: Icon(Icons.search))
