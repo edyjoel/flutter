@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forms_app/presentation/blocs/register/register_cubit.dart';
 import 'package:forms_app/presentation/widgets/widgets.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -8,7 +10,10 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Register')),
-      body: const _RegisterView(),
+      body: BlocProvider(
+        create: (context) => RegisterCubit(),
+        child: const _RegisterView(),
+      ),
     );
   }
 }
@@ -50,12 +55,11 @@ class _RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<_RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String? _username;
-  String? _email;
-  String? _password;
 
   @override
   Widget build(BuildContext context) {
+    final registerCubit = context.watch<RegisterCubit>();
+
     return Form(
       key: _formKey,
       child: Column(
@@ -63,7 +67,8 @@ class _RegisterFormState extends State<_RegisterForm> {
           CustomTextFormField(
             label: 'Username',
             onChanged: (value) {
-              _username = value;
+              registerCubit.usernameChanged(value);
+              _formKey.currentState!.validate();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -79,7 +84,8 @@ class _RegisterFormState extends State<_RegisterForm> {
           CustomTextFormField(
             label: 'Email',
             onChanged: (value) {
-              _email = value;
+              registerCubit.emailChanged(value);
+              _formKey.currentState!.validate();
             },
             validator: (value) {
               final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
@@ -98,7 +104,8 @@ class _RegisterFormState extends State<_RegisterForm> {
             label: 'Password',
             obscureText: true,
             onChanged: (value) {
-              _password = value;
+              registerCubit.passwordChanged(value);
+              _formKey.currentState!.validate();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -117,9 +124,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                 print('Form is not valid');
                 return;
               }
-              print('Username: $_username');
-              print('Email: $_email');
-              print('Password: $_password');
+              registerCubit.onSubmit();
             },
             label: Text('Register'),
             icon: Icon(Icons.app_registration),
