@@ -2,7 +2,7 @@ part of 'notifications_bloc.dart';
 
 class NotificationsState extends Equatable {
   final AuthorizationStatus authorizationStatus;
-  final List<dynamic>
+  final List<PushMessage>
   notifications; // Replace dynamic with your notification model
 
   const NotificationsState({
@@ -12,7 +12,7 @@ class NotificationsState extends Equatable {
 
   NotificationsState copyWith({
     AuthorizationStatus? authorizationStatus,
-    List<dynamic>? notifications,
+    List<PushMessage>? notifications,
   }) {
     return NotificationsState(
       authorizationStatus: authorizationStatus ?? this.authorizationStatus,
