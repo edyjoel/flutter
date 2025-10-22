@@ -70,7 +70,7 @@ class LocalNotifications {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     print('📢 Mostrando notificación local: $title');
-    
+
     flutterLocalNotificationsPlugin.show(
       id,
       title,
