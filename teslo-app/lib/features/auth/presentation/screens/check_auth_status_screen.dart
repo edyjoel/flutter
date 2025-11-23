@@ -8,10 +8,10 @@ class CheckAuthStatusScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // ref.listen(authProvider, (previous, next) {
-    //   next;
-    //   context.go('/');
-    // });
+    ref.listen(authProvider, (previous, next) {
+      next;
+      context.go('/');
+    });
 
     return const Scaffold(
       body: Center(
