@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:teslo_shop/config/config.dart';
 import 'package:teslo_shop/features/products/domain/datasources/products_datasource.dart';
 import 'package:teslo_shop/features/products/domain/entities/product.dart';
+import 'package:teslo_shop/features/products/infraestructure/errors/products_errors.dart';
 import 'package:teslo_shop/features/products/infraestructure/mappers/product_mapper.dart';
 
 class ProductsDatasourceImpl extends ProductsDatasource {
@@ -19,15 +20,38 @@ class ProductsDatasourceImpl extends ProductsDatasource {
         );
 
   @override
-  Future<Product> createUpdateProduct(Map<String, dynamic> productLike) {
-    // TODO: implement createUpdateProduct
-    throw UnimplementedError();
+  Future<Product> createUpdateProduct(Map<String, dynamic> productLike) async {
+    try {
+      final String? productId = productLike['id'];
+      final String method = (productId == null) ? 'POST' : 'PUT';
+      final String url =
+          (productId == null) ? '/products' : '/products/$productId';
+      productLike.remove('id');
+
+      final response = await dio.request(url,
+          data: productLike, options: Options(method: method));
+
+      final product = ProductMapper.jsonToEntity(response.data);
+      return product;
+    } catch (e) {
+      throw Exception('Failed to create or update product');
+    }
   }
 
   @override
-  Future<Product> getProductById(String id) {
-    // TODO: implement getProductById
-    throw UnimplementedError();
+  Future<Product> getProductById(String id) async {
+    try {
+      final response = await dio.get('/products/$id');
+      return ProductMapper.jsonToEntity(response.data);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw ProductNotFound(
+            'Error loading product: ${e.response?.statusCode}');
+      }
+      throw Exception('Connection error');
+    } catch (e) {
+      throw Exception('Failed to load product');
+    }
   }
 
   @override
